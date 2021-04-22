@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class Furniture {
 
-    @GeneratedValue @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) @Id
     String id;
     String name;
     int price;

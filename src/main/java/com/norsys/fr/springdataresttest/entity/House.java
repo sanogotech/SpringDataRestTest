@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 public class House {
 
-    @GeneratedValue @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) @Id
     String id;
 
     String name;

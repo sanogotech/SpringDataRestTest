@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class Inhabitant {
 
-    @GeneratedValue @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) @Id
     String id;
     String name;
     int age;
