@@ -14,6 +14,9 @@ public class House {
     String id;
 
     String name;
+    
+    @OneToOne
+    Address address;
 
     @OneToMany(cascade = CascadeType.ALL)
     Set<Inhabitant> inhabitants;
