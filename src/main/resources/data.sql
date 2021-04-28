@@ -24,4 +24,12 @@ INSERT INTO inhabitant VALUES
 INSERT INTO  furniture VALUES
  ('1', 'fauteuil', 100, '1'),
  ('2', 'niche', 200, '2'),
- ('3', 'lit', 300, '3')
+ ('3', 'lit', 300, '3'),
+ ('4', 'table', 300, '4'),
+ ('5', 'chaise', 300, '1'),
+ ('6', 'canapé', 300, '2'),
+ ('7', 'étagère', 300, '2'),
+ ('8', 'banc', 300, '3'),
+ ('9', 'tabouret', 300, '3'),
+ ('10', 'coffre-fort', 900, '4'),
+ ('11', 'piscine', 700, '4');

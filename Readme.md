@@ -83,5 +83,10 @@ POST /houses
 ]
 }
 
+====== nouvelles ref
 
-====== nouevlles ref
+Plusieurs relations à dispo :
+
+ManyToMany
+ManyToOne
+OneToMany
