@@ -4,11 +4,12 @@ INSERT INTO address VALUES
  ('3', 'Impasse des 101 dalmatiens'),
  ('4', 'Boulevard de Walt');
 
-INSERT INTO house VALUES
- ('1', 'la maison de Mickey', '1'),
- ('2', 'La duck''s house', '2'),
- ('3', 'Le livre de la jungle', '3'),
- ('4', 'Le coffre fort', '4');
+
+ INSERT INTO house VALUES
+  ('1', 'la maison de Mickey', '1'),
+  ('2', 'La duck''s house', '2'),
+  ('3', 'Le livre de la jungle', '3'),
+  ('4', 'Le coffre fort', '4');
 
 INSERT INTO inhabitant VALUES 
  ('1', 50, 'Mickey', '1'),
@@ -25,3 +26,5 @@ INSERT INTO  furniture VALUES
  ('1', 'fauteuil', 100, '1'),
  ('2', 'niche', 200, '2'),
  ('3', 'lit', 300, '3')
+
+

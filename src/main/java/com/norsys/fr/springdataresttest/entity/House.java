@@ -19,6 +19,7 @@ public class House {
     Address address;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "house_id")
     List<Inhabitant> inhabitants;
 
     @OneToMany(cascade = CascadeType.ALL)
