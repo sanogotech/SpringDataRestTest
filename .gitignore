@@ -35,3 +35,6 @@ build/
 mvnw
 mvnw.cmd
 spring-data-rest-test.zip
+
+.metadata
+bin

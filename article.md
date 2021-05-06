@@ -30,4 +30,58 @@ Plusieurs endpoints existent :
  
  Pour visualiser l'ensemble des endpoints disponibles, ouvrez simplement votre naviguateur à l'adresse [http://localhost:8080/](http://localhost:8080/)
  
+## Tri / Pagination
+
+Pour appliquer le tri et la pagination sur une entité, il suffit de modifier la classe étendue par le repository avec `PagingAndSortingRepository<T, ID>`.
+
+Si par exemple, on fait la modification pour la classe `FurnituresRepository` : 
+
+```java
+package com.norsys.fr.springdataresttest.repository;
+
+import com.norsys.fr.springdataresttest.entity.Furniture;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+public interface FurnituresRepository extends PagingAndSortingRepository<Furniture, String> {
+}
+```
+
+Le service est alors défini de la façon suivante, et l'on voit apparaître 3 nouveaux paramètres : 
+
+```json
+"furnitures": {
+    "href": "http://localhost:8080/furnitures{?page,size,sort}",
+	"templated": true
+}	
+```
+
+Que l'on va utiliser de la manière suivante : 
+
+### Pagination 
+
+
+```shell
+curl --location --request GET 'http://localhost:8080/furnitures/?size=5' \
+--header 'Content-Type: application/json'
+```
+
+### Tri
+```shell
+curl --location --request GET 'http://localhost:8080/furnitures/?sort=name,desc' \
+--header 'Content-Type: application/json'
+```
+
+Et si l'on souhaite appliquer le tri sur plus d'une propriété, on utilise plusieurs fois le paramètre `sort`, le tri sera appliquer dans l'ordre d'apparation des paramètres dans l'URL.
+
+```shell
+curl --location --request GET 'http://localhost:8080/furnitures/?sort=name,desc&sort=id' \
+--header 'Content-Type: application/json'
+```
+
+## Validation
+
+## Mapping
+
+## 
+ 
  TODO - complete

@@ -3,7 +3,7 @@ package com.norsys.fr.springdataresttest.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 
 @Data
@@ -19,9 +19,11 @@ public class House {
     Address address;
 
     @OneToMany(cascade = CascadeType.ALL)
-    Set<Inhabitant> inhabitants;
+    @JoinColumn(name = "house_id")
+    List<Inhabitant> inhabitants;
 
     @OneToMany(cascade = CascadeType.ALL)
-    Set<Furniture> furnitures;
+    @JoinColumn(name = "house_id")
+    List<Furniture> furnitures;
 
 }
