@@ -13,6 +13,9 @@ public class House {
     @GeneratedValue(strategy = GenerationType.IDENTITY) @Id
     String id;
 
+    @Version
+    Long version;
+
     String name;
     
     @OneToOne
