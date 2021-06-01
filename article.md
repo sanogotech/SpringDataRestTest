@@ -82,14 +82,14 @@ curl --location --request GET 'http://localhost:8080/furnitures/?sort=name,desc&
 
 ## Mapping
 
-## Les limiteation et contournements
+## Les limitations et contournements
 Dans certains cas, il  peut arriver que les opérations fournies ne correspondent pas aux process fonctionnels attendus (imaginons par exemple une gestion des commandes), il peut alors être nécessaire de créer manuellement des controllers. 
 
 Pour ce faire, il existe plusieurs annotations :
 
  - @BasePathAwareController et @RepositoryRestController sont utilisés pour créer manuellement des endpoints, en profitant des configurations Spring Data REST du projet.
 
- - @RestController (annotations standard REST) créé par contre un ensemble parallèle de endpoints avec différentes options de configuration (mappeurs différents, gestionnaires d'erreurs différents, etc.).
+ - @RestController (annotations standard REST) créée, par contre un ensemble parallèle de endpoints avec des options de configuration différentes (mappeurs différents, gestionnaires d'erreurs différents, etc.).
  
 Un petit exemple avec l'annotation `@RepositoryRestController`
 
