@@ -5,10 +5,10 @@ INSERT INTO address VALUES
  ('4', 'Boulevard de Walt');
 
  INSERT INTO house VALUES
-  ('1', 'la maison de Mickey', '1'),
-  ('2', 'La duck''s house', '2'),
-  ('3', 'Le livre de la jungle', '3'),
-  ('4', 'Le coffre fort', '4');
+  ('1', CURRENT_TIMESTAMP, 'la maison de Mickey',1.0, '1'),
+  ('2', CURRENT_TIMESTAMP, 'La duck''s house',1.0, '2'),
+  ('3', CURRENT_TIMESTAMP, 'Le livre de la jungle',1.0, '3'),
+  ('4', CURRENT_TIMESTAMP, 'Le coffre fort',1.0, '4');
 
 INSERT INTO inhabitant VALUES 
  ('1', 50, 'Mickey', '1'),
