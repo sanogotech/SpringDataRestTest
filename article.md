@@ -82,6 +82,39 @@ curl --location --request GET 'http://localhost:8080/furnitures/?sort=name,desc&
 
 ## Mapping
 
-## 
+## Les limiteation et contournements
+Dans certains cas, il  peut arriver que les opérations fournies ne correspondent pas aux process fonctionnels attendus (imaginons par exemple une gestion des commandes), il peut alors être nécessaire de créer manuellement des controllers. 
+
+Pour ce faire, il existe plusieurs annotations :
+
+ - @BasePathAwareController et @RepositoryRestController sont utilisés pour créer manuellement des endpoints, en profitant des configurations Spring Data REST du projet.
+
+ - @RestController (annotations standard REST) créé par contre un ensemble parallèle de endpoints avec différentes options de configuration (mappeurs différents, gestionnaires d'erreurs différents, etc.).
  
- TODO - complete
+Un petit exemple avec l'annotation `@RepositoryRestController`
+
+
+```java
+@RepositoryRestController
+public class InhabitantController {
+	
+    private final HouseRepository houseRepository;
+
+    @Autowired
+    public InhabitantController(HouseRepository repo) { 
+        houseRepository = repo;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/houses/inhabitants") 
+    public @ResponseBody ResponseEntity<?> searchInhabitants(@RequestParam String name) {
+        List<House> inhabitants = houseRepository.findHomeByInhabitant(name); 
+
+        CollectionModel<House> resources = CollectionModel.of(inhabitants); 
+
+        resources.add(linkTo(methodOn(InhabitantController.class).searchInhabitants(name)).withSelfRel()); 
+
+        return ResponseEntity.ok(resources); 
+    }
+
+}
+```
