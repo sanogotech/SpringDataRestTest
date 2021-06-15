@@ -6,5 +6,4 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(excerptProjection = FurnitureExcerpt.class)
-public interface FurnituresRepository extends PagingAndSortingRepository<Furniture, String> {
-}
+public interface FurnituresRepository extends PagingAndSortingRepository<Furniture, String> {}
