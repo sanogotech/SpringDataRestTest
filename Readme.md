@@ -197,3 +197,166 @@ Dans un projet qui utilise Spring Data REST, les rôles des "services" et des "c
   - Pour des agrégations de données ou des transformations complexes avant de répondre aux clients.
 
 En résumé, bien que Spring Data REST simplifie l'exposition des opérations CRUD via les repositories, les services et les contrôleurs restent des composants essentiels pour gérer des cas d'utilisation plus complexes ou spécifiques.
+
+Pour illustrer les rôles des "services" et des "controllers" dans un projet utilisant Spring Data REST, nous pouvons utiliser des diagrammes de séquence. Voici deux exemples de diagrammes de séquence complets :
+
+### 1. Diagramme de Séquence pour une Opération CRUD Simple
+
+#### Scénario : Récupération d'une Entité
+
+```plaintext
+Client -> Spring Data REST Repository -> Base de Données
+```
+
+```markdown
+```mermaid
+sequenceDiagram
+    participant Client
+    participant SpringDataRestRepository as Spring Data REST Repository
+    participant Database as Base de Données
+
+    Client->>+SpringDataRestRepository: GET /entities/1
+    SpringDataRestRepository->>+Database: SELECT * FROM entities WHERE id = 1
+    Database-->>-SpringDataRestRepository: Entity data
+    SpringDataRestRepository-->>-Client: Entity data (JSON)
+```
+```
+
+### 2. Diagramme de Séquence pour une Opération Complexe avec Service et Controller
+
+#### Scénario : Création d'une Entité avec Logique Métier
+
+```plaintext
+Client -> Controller -> Service -> Repository -> Base de Données
+```
+
+```markdown
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Controller as REST Controller
+    participant Service as Business Service
+    participant Repository as JPA Repository
+    participant Database as Base de Données
+
+    Client->>+Controller: POST /entities
+    Controller->>+Service: createEntity(entityData)
+    Service->>+Repository: save(entityData)
+    Repository->>+Database: INSERT INTO entities (data) VALUES (...)
+    Database-->>-Repository: Entity saved
+    Repository-->>-Service: Entity saved
+    Service-->>-Controller: Entity created
+    Controller-->>-Client: 201 Created (Location: /entities/1)
+```
+```
+
+### Explication des Diagrammes :
+
+#### Diagramme 1 : Récupération d'une Entité
+- **Client** : Le client (comme une application front-end ou un outil de test API) envoie une requête GET pour récupérer une entité.
+- **Spring Data REST Repository** : Spring Data REST intercepte la requête et utilise le repository pour interroger la base de données.
+- **Base de Données** : Le repository exécute une requête SQL pour récupérer les données de l'entité.
+- **Réponse** : Les données de l'entité sont renvoyées au client sous forme de JSON.
+
+#### Diagramme 2 : Création d'une Entité avec Logique Métier
+- **Client** : Le client envoie une requête POST pour créer une nouvelle entité.
+- **Controller** : Le contrôleur REST intercepte la requête et la transmet au service.
+- **Service** : Le service applique la logique métier nécessaire avant de sauvegarder l'entité.
+- **Repository** : Le service utilise le repository pour persister l'entité dans la base de données.
+- **Base de Données** : Le repository exécute une requête SQL pour insérer les données de l'entité.
+- **Réponse** : Une réponse HTTP 201 Created est renvoyée au client avec l'emplacement de la nouvelle entité.
+
+Ces diagrammes de séquence montrent comment les composants interagissent dans des scénarios simples et complexes, mettant en évidence le rôle des services et des contrôleurs dans un projet utilisant Spring Data REST.
+
+### 3. Diagramme de Séquence pour une Validation Avancée avant la Création d'une Entité
+
+#### Scénario : Création d'une Entité avec Validation
+
+```plaintext
+Client -> Controller -> Service -> Validation -> Repository -> Base de Données
+```
+
+```markdown
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Controller as REST Controller
+    participant Service as Business Service
+    participant Validator as Custom Validator
+    participant Repository as JPA Repository
+    participant Database as Base de Données
+
+    Client->>+Controller: POST /entities
+    Controller->>+Service: createEntity(entityData)
+    Service->>+Validator: validate(entityData)
+    alt Validation Success
+        Validator-->>-Service: Validation Passed
+        Service->>+Repository: save(entityData)
+        Repository->>+Database: INSERT INTO entities (data) VALUES (...)
+        Database-->>-Repository: Entity saved
+        Repository-->>-Service: Entity saved
+        Service-->>-Controller: Entity created
+        Controller-->>-Client: 201 Created (Location: /entities/1)
+    else Validation Failure
+        Validator-->>-Service: Validation Failed
+        Service-->>-Controller: Validation Error
+        Controller-->>-Client: 400 Bad Request (Validation Error)
+    end
+```
+```
+
+### 4. Diagramme de Séquence pour une Opération Personnalisée via un Controller
+
+#### Scénario : Opération Complexe nécessitant un EndPoint Personnalisé
+
+```plaintext
+Client -> Custom Controller -> Service -> Multiple Repositories -> Base de Données
+```
+
+```markdown
+```mermaid
+sequenceDiagram
+    participant Client
+    participant CustomController as Custom REST Controller
+    participant Service as Business Service
+    participant RepositoryA as Repository A
+    participant RepositoryB as Repository B
+    participant Database as Base de Données
+
+    Client->>+CustomController: POST /customOperation
+    CustomController->>+Service: performCustomOperation(customData)
+    Service->>+RepositoryA: findRelatedEntities(customData)
+    RepositoryA->>+Database: SELECT * FROM related_entities WHERE ...
+    Database-->>-RepositoryA: Related entities data
+    RepositoryA-->>-Service: Related entities data
+    Service->>+RepositoryB: saveCustomResult(relatedEntities)
+    RepositoryB->>+Database: INSERT INTO custom_results (data) VALUES (...)
+    Database-->>-RepositoryB: Custom result saved
+    RepositoryB-->>-Service: Custom result saved
+    Service-->>-CustomController: Custom operation completed
+    CustomController-->>-Client: 200 OK (Operation Result)
+```
+```
+
+### Explication des Diagrammes :
+
+#### Diagramme 3 : Création d'une Entité avec Validation
+- **Client** : Le client envoie une requête POST pour créer une nouvelle entité.
+- **Controller** : Le contrôleur REST intercepte la requête et la transmet au service.
+- **Service** : Le service demande la validation de l'entité par un validateur customisé.
+- **Validator** : Le validateur vérifie les règles spécifiques sur les données de l'entité.
+  - **Validation Success** : Si la validation passe, le service continue avec la sauvegarde de l'entité.
+  - **Validation Failure** : Si la validation échoue, le service retourne une erreur de validation au contrôleur.
+- **Repository** : Le service utilise le repository pour persister l'entité validée dans la base de données.
+- **Réponse** : Une réponse HTTP 201 Created est renvoyée au client si la validation réussit, sinon une réponse HTTP 400 Bad Request est renvoyée en cas d'erreur de validation.
+
+#### Diagramme 4 : Opération Complexe nécessitant un EndPoint Personnalisé
+- **Client** : Le client envoie une requête POST pour effectuer une opération personnalisée.
+- **CustomController** : Le contrôleur personnalisé intercepte la requête et la transmet au service pour traitement.
+- **Service** : Le service exécute une opération complexe qui nécessite l'interaction avec plusieurs repositories.
+  - **Repository A** : Le service interroge le repository A pour récupérer des entités liées.
+  - **Repository B** : Après avoir récupéré les entités liées, le service utilise le repository B pour sauvegarder le résultat de l'opération personnalisée.
+- **Base de Données** : Les repositories exécutent les requêtes SQL nécessaires pour récupérer et persister les données.
+- **Réponse** : Une réponse HTTP 200 OK est renvoyée au client avec le résultat de l'opération.
+
+Ces diagrammes illustrent les interactions complexes entre les composants dans un projet Spring Data REST, en mettant en avant le rôle crucial des services et des contrôleurs dans les scénarios nécessitant une logique métier avancée, des validations personnalisées et des opérations spécifiques.
