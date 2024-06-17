@@ -26,7 +26,45 @@ N’ayant pas de bonne réponse dans mon cas d’usage, le controller et le serv
 ## Mise en place d’un projet de test
 On commence par importer les bonnes dépendances avec Maven: Java 11 et Spring Boot 2.4.5. Nous ajoutons une base H2 (in memory) et Lombok pour faciliter le développement de notre test.
 
+
 Ensuite un peu de configuration pour générer la BDD directement depuis les annotations JPA.
+
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <....>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <....>
+</project>
+```
 
 ## Let’s code !
 Ici nous décrivons des maisons avec leurs habitants, leurs adresses et leurs meubles.
