@@ -274,7 +274,6 @@ Ces diagrammes de séquence montrent comment les composants interagissent dans d
 Client -> Controller -> Service -> Validation -> Repository -> Base de Données
 ```
 
-
 ```mermaid
 sequenceDiagram
     participant Client
@@ -301,7 +300,6 @@ sequenceDiagram
         Controller-->>-Client: 400 Bad Request (Validation Error)
     end
 ```
-
 
 ### 4. Diagramme de Séquence pour une Opération Personnalisée via un Controller
 
