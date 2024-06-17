@@ -66,7 +66,7 @@ On commence par importer les bonnes dépendances avec Maven: Java 11 et Spring B
 </project>
 ```
 
-Ensuite un peu de configuration pour générer la BDD directement depuis les annotations JPA.
+Ensuite un peu de configuration  **application.properties**  pour générer la BDD directement depuis les annotations JPA.
 
 ```properties
 spring.datasource.url=jdbc:h2:mem:test
@@ -80,6 +80,14 @@ spring.jpa.hibernate.ddl-auto=create
 Ici nous décrivons des maisons avec leurs habitants, leurs adresses et leurs meubles.
 
 Ensuite nous implémentons les repositories correspondants aux entités.
+
+```java
+public interface FurnituresRepository extends CrudRepository<Furniture, String>{}
+
+public interface HouseRepository extends CrudRepository<House, String>{}
+
+public interface AddressRepository extends CrudRepository<Address, String>{}
+```
 
 > Note importante: aucun repository n’est mis en place pour les habitants.
 
