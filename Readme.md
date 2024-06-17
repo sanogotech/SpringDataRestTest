@@ -27,7 +27,7 @@ N’ayant pas de bonne réponse dans mon cas d’usage, le controller et le serv
 On commence par importer les bonnes dépendances avec Maven: Java 11 et Spring Boot 2.4.5. Nous ajoutons une base H2 (in memory) et Lombok pour faciliter le développement de notre test.
 
 
-Ensuite un peu de configuration pour générer la BDD directement depuis les annotations JPA.
+
 
 ```xml
 
@@ -64,6 +64,16 @@ Ensuite un peu de configuration pour générer la BDD directement depuis les ann
     </dependencies>
     <....>
 </project>
+```
+
+Ensuite un peu de configuration pour générer la BDD directement depuis les annotations JPA.
+
+```properties
+spring.datasource.url=jdbc:h2:mem:test
+spring.datasource.username=sa
+spring.datasource.password=password
+
+spring.jpa.hibernate.ddl-auto=create
 ```
 
 ## Let’s code !
