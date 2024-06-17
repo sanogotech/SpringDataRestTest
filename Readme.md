@@ -299,6 +299,7 @@ Client -> Controller -> Service -> Validation -> Repository -> Base de Données
         Service-->>-Controller: Validation Error
         Controller-->>-Client: 400 Bad Request (Validation Error)
     end
+
 ```
 
 ### 4. Diagramme de Séquence pour une Opération Personnalisée via un Controller
