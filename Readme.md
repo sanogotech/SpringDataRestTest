@@ -208,7 +208,7 @@ Pour illustrer les rôles des "services" et des "controllers" dans un projet uti
 Client -> Spring Data REST Repository -> Base de Données
 ```
 
-```markdown
+
 ```mermaid
 sequenceDiagram
     participant Client
@@ -220,7 +220,6 @@ sequenceDiagram
     Database-->>-SpringDataRestRepository: Entity data
     SpringDataRestRepository-->>-Client: Entity data (JSON)
 ```
-```
 
 ### 2. Diagramme de Séquence pour une Opération Complexe avec Service et Controller
 
@@ -230,7 +229,6 @@ sequenceDiagram
 Client -> Controller -> Service -> Repository -> Base de Données
 ```
 
-```markdown
 ```mermaid
 sequenceDiagram
     participant Client
@@ -248,7 +246,7 @@ sequenceDiagram
     Service-->>-Controller: Entity created
     Controller-->>-Client: 201 Created (Location: /entities/1)
 ```
-```
+
 
 ### Explication des Diagrammes :
 
@@ -276,7 +274,7 @@ Ces diagrammes de séquence montrent comment les composants interagissent dans d
 Client -> Controller -> Service -> Validation -> Repository -> Base de Données
 ```
 
-```markdown
+
 ```mermaid
 sequenceDiagram
     participant Client
@@ -303,7 +301,7 @@ sequenceDiagram
         Controller-->>-Client: 400 Bad Request (Validation Error)
     end
 ```
-```
+
 
 ### 4. Diagramme de Séquence pour une Opération Personnalisée via un Controller
 
@@ -313,7 +311,7 @@ sequenceDiagram
 Client -> Custom Controller -> Service -> Multiple Repositories -> Base de Données
 ```
 
-```markdown
+
 ```mermaid
 sequenceDiagram
     participant Client
@@ -336,7 +334,7 @@ sequenceDiagram
     Service-->>-CustomController: Custom operation completed
     CustomController-->>-Client: 200 OK (Operation Result)
 ```
-```
+
 
 ### Explication des Diagrammes :
 
